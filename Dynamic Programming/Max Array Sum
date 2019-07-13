@@ -1,0 +1,80 @@
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.regex.*;
+
+/*
+        HackerRank Challenge: Max Array Sum
+        GOAL: Determine from a given integer array the maximum sum from subsets produced
+        with elements from the integer array. The subsets contain non-adjacent elements from the
+        integer array. Each subset is unique (no duplicates)
+ */
+
+public class HR_Max_Array_Sum {
+
+    private static final int[] intArray1 = {3,5,-7,8,10};
+    private static List<Integer> intArrLList = new ArrayList<>();
+    private static Collection<Integer[]> subsetCollection;
+
+    private static void createSubsets(int[] intArr) throws Exception{
+
+        int arrSize = intArr.length;
+
+
+        for(int i = 0; i < arrSize; i++) {
+            int element = intArr[i];
+            int index = i;
+            int altIndex = i;
+            boolean check = true;
+            Integer[] subset;
+
+            while(check) {
+                intArrLList.add(element);
+                System.out.println(element+" added");
+                altIndex++;
+
+                if(altIndex == index+1 || altIndex == index-1 ) {
+                    System.out.println("In 1st if: if altIndex is adjacent");
+                    System.out.println("index = "+index);
+                    System.out.println("altIndex = "+altIndex);
+                    altIndex++;
+                    System.out.println("index = "+index);
+                    System.out.println("altIndex incremented -> "+altIndex);
+                }
+                if(altIndex != index+1 || altIndex != index-1) {
+                    System.out.println("In 2nd if: if altIndex is non-adjacent -> element = intArr[altIndex]");
+                    element = intArr[altIndex];
+                    System.out.println(element+" is the new element");
+                    System.out.println("index = "+index);
+                    System.out.println("altIndex = "+altIndex);
+                }
+                if(altIndex == intArr.length) {
+                    System.out.println("In 3rd if: if altIndex reaches intArr.length -> create subset and"+
+                            " add to subsetCollection");
+                    subset = (Integer[]) intArrLList.toArray(); // convert LL to Integer[]
+                    subsetCollection.add(subset); // add subset to Collection
+                    intArrLList.clear();
+                    System.out.println("Cleared out subset");
+                }
+            }
+
+        }
+
+    }
+
+
+    private static void maxSubsetSum(int[] intArr) {
+
+
+    }
+
+    public static void main(String[] args) throws Exception {
+
+        createSubsets(intArray1);
+        maxSubsetSum(intArray1);
+
+    }
+}
